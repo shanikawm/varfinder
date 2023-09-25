@@ -3,5 +3,5 @@
 
 ## installation
 
-### Dependancies
+### Dependencies
 
