@@ -50,10 +50,22 @@ done
 
 #Get present working directory
 pwd=$(pwd)
+log="${pwd}/varfinder.log"
 
-echo ">>> Checking for fasta file ..."
+#Function to print and log messages
+function vflog(){
+	echo $1;
+	echo $1 >> $log
+}
+vflog " "
+#Get Date
+d=$(date)
+
+vflog ">>> Starting varfind-filter worlflow on ${d} ..."
+vflog ">>> Checking for fasta file ..."
+
 if [ -z "$file" ] || [ ! -f "$file" ]; then
-    >&2 echo "The fasta file ${file} does not exists or not specified by -f|--file <filename> !"
+    vflog "The fasta file ${file} does not exists or not specified by -f|--file <filename> !"
     echo -e $help_text
     exit 1;
 fi
@@ -61,25 +73,26 @@ fi
 file=$(realpath $file)
 
 if [ -z $name ]; then
-    >&2 echo "Chromosome name must be specified by -n|--name <filename> !"
+    vflog "Chromosome name must be specified by -n|--name <filename> !"
     echo -e $help_text
     exit 1;
 fi
 
-echo ">>> Checking for index file ..."
+vflog ">>> Checking for index file ..."
 if [ ! -f "${file}.fai" ]; then
-	echo ">>> Index file does not exists. Creating it..."
+	vflog ">>> Index file does not exists. Creating it..."
 	samtools faidx $file;
 fi
 
-echo ">>> Filtering the Chromosome and creating the file ${name}.fa.gz ..."
+vflog ">>> Filtering the Chromosome and creating the file ${name}.fa.gz ..."
 if [ -z $rename ]; then
 	samtools faidx $file $name | bgzip > "${pwd}/${name}.fa.gz"
 else 
 	samtools faidx $file $name | sed "s/^>${name}/>${rename}/" | bgzip > "${pwd}/${name}.fa.gz"
 fi
 
-echo ">>> Creating the index for ${name}.fa.gz ..."
+vflog ">>> Creating the index for ${name}.fa.gz ..."
 samtools faidx "${pwd}/${name}.fa.gz"
-echo "Done varfind-filter !";
+d=$(date)
+vflog ">>> Done varfind-filter on ${d} !";
 
