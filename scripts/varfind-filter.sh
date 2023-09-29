@@ -9,7 +9,7 @@ SHORT=f:,n:,r:,h
 LONG=file:,name:,rename:,help
 OPTS=$(getopt -a -n varfind-filter.sh --options $SHORT --longoptions $LONG -- "$@")
 
- help_text="Usage: varfind filter [options]\n"
+ help_text="Usage: varfind-filter.sh [options]\n"
 help_text+="-f | --file STR .fasta or .fa sequence file\n"
 help_text+="-n | --name STR Chromosome name to be filtered.\n"
 help_text+="-r | --rename STR rename the chromosome in output sequence file (optional)\n"

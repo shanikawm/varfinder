@@ -3,12 +3,13 @@
 # Date : September 27, 2023
 # Description : Filter a sample from a VCF file and create fasta file for that sample using a reference fasta
 # Usage : varfind-prepare.sh -f <reference fasta,fa file> -v <VCF file> -s <sample name> -r <region>
+# ./varfind-prepare.sh -r 20:30000000-32000000 -f chr20.fa.gz -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG00096
 
 SHORT=f:,v:,s:,r:,h
 LONG=file:,name:,rename:,help
 OPTS=$(getopt -a -n varfind-prepare.sh --options $SHORT --longoptions $LONG -- "$@")
 
- help_text="Usage: varfind filter [options]\n"
+ help_text="Usage: varfind-prepare.sh [options]\n"
 help_text+="-f | --file STR .fasta or .fa reference sequence file\n"
 help_text+="-v | --vcf STR ground truth VCF file\n"
 help_text+="-s | --sample STR Sample name to be considered from the VCF file\n"
