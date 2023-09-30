@@ -93,6 +93,7 @@ fi
 
 vflog ">>> Creating the index for ${name}.fa.gz ..."
 samtools faidx "${pwd}/${name}.fa.gz"
+bwa index "${pwd}/${name}.fa.gz";
 d=$(date)
 vflog ">>> Done varfind-filter on ${d} !";
 

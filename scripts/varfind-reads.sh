@@ -2,14 +2,14 @@
 # Author : Shanika Amarasoma, Nuzla Ismail
 # Date : September 29, 2023
 # Description : Silmulate reads using wgsim or ngsngs
-# Usage : varfind-reads.sh -f <reference fasta,fa file> -l <read length> -d <depth> -s <simulator> 
+# Usage : varfind-reads.sh -f <sample fasta,fa file> -l <read length> -d <depth> -s <simulator> 
 # ./varfind-reads.sh -f HG00096.fasta.gz -s n -l 150 -d 60
 
 SHORT=f:,l:,d:,s:,h
 LONG=file:,length:,depth:,sim:,help
 OPTS=$(getopt -a -n varfind-reads.sh --options $SHORT --longoptions $LONG -- "$@")
 
- help_text="Usage: varfind filter [options]\n"
+ help_text="Usage: varfind-reads.sh [options]\n"
 help_text+="-f | --file STR .fasta or .fa sequence file to read from\n"
 help_text+="-l | --length INT read length (Default 100)\n"
 help_text+="-d | --depth INT read coverage depth (Default 30)\n"
