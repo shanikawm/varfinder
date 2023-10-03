@@ -7,7 +7,7 @@
 # ./varfind-map.sh -g vgindex.giraffe.gbz -1 HG00096_reads_R1.fq.gz -2 HG00096_reads_R2.fq.gz -t 48 -m g
 
 SHORT=f:,g:,m:,1:,2:,t:,h
-LONG=file:,gbz:,mapper:,read1:,read2:,help
+LONG=file:,gbz:,mapper:,read1:,read2:,threads:,help
 OPTS=$(getopt -a -n varfind-map.sh --options $SHORT --longoptions $LONG -- "$@")
 
  help_text="Usage: varfind-map.sh [options]\n"
