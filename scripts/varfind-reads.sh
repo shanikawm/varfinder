@@ -3,7 +3,7 @@
 # Date : September 29, 2023
 # Description : Silmulate reads using wgsim or ngsngs
 # Usage : varfind-reads.sh -f <sample fasta,fa file> -l <read length> -d <depth> -s <simulator> 
-# ./varfind-reads.sh -f HG00096.fasta.gz -s n -l 150 -d 60
+# ./varfind-reads.sh -f HG00096.fa -s n -l 150 -d 60
 
 SHORT=f:,l:,d:,s:,h
 LONG=file:,length:,depth:,sim:,help

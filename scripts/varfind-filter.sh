@@ -4,6 +4,9 @@
 # Description : This command filter a specified chromosome from a fasta file
 # Usage : varfind-filter -f <fasta,fa file> -n <chromosome name to filter> -r <rename chromosome (optional)>
 # ./varfind-filter.sh -f GRCh38_full_analysis_set_plus_decoy_hla.fa.gz -n chr20 -r 20
+# https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.40/
+# GCF_000001405.40_GRCh38.p14_genomic.fna -> NC_000020.11 Homo sapiens chromosome 20, GRCh38.p14 Primary Assembly
+# ./varfind-filter.sh -f GCF_000001405.40_GRCh38.p14_genomic.fna.gz -n NC_000020.11 -r 20
 
 SHORT=f:,n:,r:,h
 LONG=file:,name:,rename:,help
@@ -84,16 +87,16 @@ if [ ! -f "${file}.fai" ]; then
 	samtools faidx $file;
 fi
 
-vflog ">>> Filtering the Chromosome and creating the file ${name}.fa.gz ..."
+vflog ">>> Filtering the Chromosome and creating the file ${name}.fa ..."
 if [ -z $rename ]; then
-	samtools faidx $file $name | bgzip > "${pwd}/${name}.fa.gz"
+	samtools faidx $file $name > "${pwd}/${name}.fa"
 else 
-	samtools faidx $file $name | sed "s/^>${name}/>${rename}/" | bgzip > "${pwd}/${name}.fa.gz"
+	samtools faidx $file $name | sed "s/^>${name}/>${rename}/" > "${pwd}/${name}.fa"
 fi
 
-vflog ">>> Creating the index for ${name}.fa.gz ..."
-samtools faidx "${pwd}/${name}.fa.gz"
-bwa index "${pwd}/${name}.fa.gz";
+vflog ">>> Creating the index for ${name}.fa ..."
+samtools faidx "${pwd}/${name}.fa"
+bwa index "${pwd}/${name}.fa";
 d=$(date)
 vflog ">>> Done varfind-filter on ${d} !";
 
