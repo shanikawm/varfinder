@@ -64,6 +64,9 @@ do
   esac
 done
 
+# exit when any command fails
+set -e
+
 #Get present working directory
 pwd=$(pwd)
 log="${pwd}/varfinder.log"

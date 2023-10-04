@@ -2,7 +2,7 @@
 # Author : Shanika Amarasoma, Nuzla Ismail
 # Date : September 26, 2023
 # Description : This command filter a specified chromosome from a fasta file
-# Usage : varfind-filter -f <fasta,fa file> -n <chromosome name to filter> -r <rename chromosome (optional)>
+# Usage : varfind-filter.sh -f <fasta,fa file> -n <chromosome name to filter> -r <rename chromosome (optional)>
 # ./varfind-filter.sh -f GRCh38_full_analysis_set_plus_decoy_hla.fa.gz -n chr20 -r 20
 # https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.40/
 # GCF_000001405.40_GRCh38.p14_genomic.fna -> NC_000020.11 Homo sapiens chromosome 20, GRCh38.p14 Primary Assembly
@@ -51,6 +51,9 @@ do
   esac
 done
 
+# exit when any command fails
+set -e
+
 #Get present working directory
 pwd=$(pwd)
 log="${pwd}/varfinder.log"
@@ -89,9 +92,9 @@ fi
 
 vflog ">>> Filtering the Chromosome and creating the file ${name}.fa ..."
 if [ -z $rename ]; then
-	samtools faidx $file $name > "${pwd}/${name}.fa"
+	samtools faidx $file $name | tr [:lower:] [:upper:] > "${pwd}/${name}.fa"
 else 
-	samtools faidx $file $name | sed "s/^>${name}/>${rename}/" > "${pwd}/${name}.fa"
+	samtools faidx $file $name | tr [:lower:] [:upper:] | sed "s/^>${name}/>${rename}/i" > "${pwd}/${name}.fa"
 fi
 
 vflog ">>> Creating the index for ${name}.fa ..."
