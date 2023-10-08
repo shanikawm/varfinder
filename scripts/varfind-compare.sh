@@ -151,11 +151,11 @@ vflog  "|:----------------------------------|-----------:|"
 vflog  "$(printf "|  Ground Truth SNPs                | %'10d |\n" ${snp})"                  
 vflog  "$(printf "|  Ground Truth INDELs              | %'10d |\n" ${indel})"
 vflog  " "                
-vflog  "$(printf "|  Identified SNPs in Simulation    | %'10d |\n" ${v_snp})"              
-vflog  "$(printf "|  Identified INDELs in Simulation  | %'10d |\n" ${v_indel})"
+vflog  "$(printf "|  Varfind SNPs                     | %'10d |\n" ${v_snp})"              
+vflog  "$(printf "|  varfind INDELs                   | %'10d |\n" ${v_indel})"
 vflog  " "             
-vflog  "$(printf "|  SNPs Private to Simulation       | %'10d |\n" ${p_snp})"            
-vflog  "$(printf "|  INDELs Private to Simulation     | %'10d |\n" ${p_indel})"  
+vflog  "$(printf "|  SNPs Private to varfind vcf      | %'10d |\n" ${p_snp})"            
+vflog  "$(printf "|  INDELs Private to varfind vcf    | %'10d |\n" ${p_indel})"  
 vflog  " "         
 vflog  "$(printf "|  Exact Matched SNPs               | %'10d |\n" ${m_snp})"            
 vflog  "$(printf "|  Exact Matched INDELs             | %'10d |\n" ${m_indel})"
@@ -173,9 +173,17 @@ vflog  "$(printf "|  INDEL Sensitivity                | %'9.4f%% |\n" ${indel_se
 vflog  "$(printf "|  INDEL Specificity                | %'9.4f%% |\n" ${indel_specificity})"
 vflog  "$(printf "|  INDEL F1 Score                   | %'9.4f%% |\n" ${indel_f1})"
 vflog  " "
-vflog  "$(printf "|  ${bold}Overall Sensitivity              | %'9.4f%%${normal} |\n" ${sensitivity})" 
-vflog  "$(printf "|  ${bold}Overall Specificity              | %'9.4f%%${normal} |\n" ${specificity})"
-vflog  "$(printf "|  ${bold}Overall F1 Score                 | %'9.4f%%${normal} |\n" ${f1})"
+vflog  "$(printf "|  Overall Sensitivity              | %'9.4f%%$ |\n" ${sensitivity})" 
+vflog  "$(printf "|  Overall Specificity              | %'9.4f%%$ |\n" ${specificity})"
+vflog  "$(printf "|  Overall F1 Score                 | %'9.4f%%$ |\n" ${f1})"
+
+vflog  " "
+
+vflog "Ground Truth SNPs,Ground Truth INDELs,Identified SNPs,Identified INDELs,Private SNPs,Private INDELs,Matched SNPs,Matched INDELs,TP,FP,TN,FN,SNP Sensitivity,SNP Specificity,SNP F1 Score,INDEL Sensitivity,INDEL Specificity,INDEL F1 Score,Overall Sensitivity,Overall Specificity,Overall F1 Score"
+
+vflog "${snp},${indel},${v_snp},${v_indel},${p_snp},${p_indel},${m_snp},${m_indel},${tp},${fp},${tn},${fn},${snp_sensitivity},${snp_specificity},${snp_f1},${indel_sensitivity},${indel_specificity},${indel_f1},${sensitivity},${specificity},${f1}"
+
+vflog  " "
 
 d=$(date)
-vflog ">>> Done varfind-compare on ${d} !";
+vflog ">>> Done varfind-compare.sh on ${d} !";

@@ -161,5 +161,10 @@ else
     exit 1;
 fi
 
+if [[ $mapper != 'g' ]] ; then
+	vflog ">>> Creating and index for the ${prefix}.bam file"
+	tabix -f "${pwd}/${prefix}.bam"
+fi
+
 d=$(date)
 vflog ">>> Done varfind-map on ${d} !";

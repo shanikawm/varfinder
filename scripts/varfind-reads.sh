@@ -110,6 +110,7 @@ fi
 
 if [ -z $sim ]; then
    sim="n";
+   vflog "No reads simulator is specified. Assigning default NGSNGS";
 fi
 
 prefix=$(basename ${file%.*})
