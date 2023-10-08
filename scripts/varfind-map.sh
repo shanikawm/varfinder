@@ -84,7 +84,7 @@ if [ -z $mapper ]; then
    mapper="m";
 fi
 
-vflog ">>> Starting varfind-map worlflow on ${d} ..."
+vflog ">>> Starting varfind-map workflow on ${d} ..."
 
 if [[ $mapper == 'g' ]] ; then
 	vflog "Mapper is 'vg giraffe'"

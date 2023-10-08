@@ -85,7 +85,7 @@ if [ -z $caller ]; then
    caller="b";
 fi
 
-vflog ">>> Starting varfind-call worlflow on ${d} ..."
+vflog ">>> Starting varfind-call workflow on ${d} ..."
 
 if [[ $caller == 'v' ]] ; then
 	vflog "Variant caller is 'vg call'"

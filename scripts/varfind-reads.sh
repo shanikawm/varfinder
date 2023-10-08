@@ -69,7 +69,7 @@ vflog " "
 #Get Date
 d=$(date)
 
-vflog ">>> Starting varfind-reads worlflow on ${d} ..."
+vflog ">>> Starting varfind-reads workflow on ${d} ..."
 vflog ">>> Checking for sequence fasta file ..."
 
 if [ -z "$file" ] || [ ! -f "$file" ]; then

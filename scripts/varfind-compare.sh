@@ -65,7 +65,7 @@ vflog " "
 #Get Date
 d=$(date)
 
-vflog ">>> Starting varfind-compare worlflow on ${d} ..."
+vflog ">>> Starting varfind-compare workflow on ${d} ..."
 vflog ">>> Checking for ground truth vcf file ..."
 
 if [ -z "$gtvcf" ] || [ ! -f "$gtvcf" ]; then

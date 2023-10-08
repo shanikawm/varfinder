@@ -100,6 +100,7 @@ vflog " "
 #Get Date
 d=$(date)
 
+vflog "======================================================================"
 vflog ">>> Starting varfind-pipe worlflow on ${d} ..."
 vflog ">>> Checking for reference .fasta or .gbz graph file ..."
 
@@ -191,17 +192,21 @@ sp=$(dirname "$(realpath "$0")")
 prefix=${file%.*}
 #Pipe START
 "${sp}/varfind-reads.sh" -f $file -s $sim -l $length -d $depth
+sleep 2;
 if [ ${ref##*.} == "gbz" ]; then
 	"${sp}/varfind-map.sh" -g $ref -1 "${prefix}_reads_R1.fq.gz" -2 "${prefix}_reads_R2.fq.gz" -t $threads -m $mapper
+	sleep 3;
 	"${sp}/varfind-call.sh" -g $ref -m "${prefix}.gam" -c $caller -t $threads
 else
 	"${sp}/varfind-map.sh" -f $ref -1 "${prefix}_reads_R1.fq.gz" -2 "${prefix}_reads_R2.fq.gz" -t $threads -m $mapper
+	sleep 2;
 	if [ -z "$image" ] ; then
 		"${sp}/varfind-call.sh" -f $ref -m "${prefix}.bam" -c $caller -t $threads
 	else 
 		"${sp}/varfind-call.sh" -f $ref -m "${prefix}.bam" -i $image -c $caller -t $threads
 	fi
 fi
+sleep 2;
 "${sp}/varfind-compare.sh" -g $vcf -v "${prefix}.varfind.${caller}.vcf.gz" -f $file
 #Pipe END
 end=`date +%s`
@@ -213,4 +218,4 @@ vflog ">>> Parameters list"
 vflog "depth,length,simulator,mapper,caller,threads,runtime"
 vflog "${depth},${length},${sim},${mapper},${caller},${threads},${runtime}"
 vflog ">>> Done varfind-pipe.sh on ${d} !";
-
+vflog "======================================================================"

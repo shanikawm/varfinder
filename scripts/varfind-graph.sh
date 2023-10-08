@@ -69,7 +69,7 @@ vflog " "
 #Get Date
 d=$(date)
 
-vflog ">>> Starting varfind-graph worlflow on ${d} ..."
+vflog ">>> Starting varfind-graph workflow on ${d} ..."
 vflog ">>> Checking for reference fasta file ..."
 
 if [ -z "$file" ] || [ ! -f "$file" ]; then
