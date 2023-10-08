@@ -122,11 +122,15 @@ if [[ $sim == 'w' ]] ; then
 	wgsim -r 0 -e 0.001 -N $reads -1 $length -2 $length $file "${pwd}/${prefix}_reads_R1.fq" "${pwd}/${prefix}_reads_R2.fq";
 	bgzip -f "${pwd}/${prefix}_reads_R1.fq";
 	bgzip -f "${pwd}/${prefix}_reads_R2.fq";
-else
+elif [[ $sim == 'n' ]] ; then
 	vflog ">>> Simulating reads with NGSNGS ..."
 	cd $pwd;
 	#ngsngs -i "../${sample}" -r $reads -l $length -seq PE -qs 20 -f fq.gz -o "${sample%.*}_reads";
 	ngsngs -i $file -c $depth -l $length -seq PE -qs 30 -f fq.gz -o "${prefix}_reads";
+else 
+	vflog "Unknown option \"${sim}\" for --sim!"
+    echo -e $help_text
+    exit 1;
 fi
 
 d=$(date)
