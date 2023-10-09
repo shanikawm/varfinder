@@ -6,8 +6,8 @@
 # ./varfind-prepare.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG00096
 # http://hgdownload.soe.ucsc.edu/gbdb/hg38/1000Genomes/ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz
 
-SHORT=f:,v:,s:,r:,h
-LONG=file:,name:,rename:,help
+SHORT=f:,v:,s:,r:,w:,h
+LONG=file:,name:,rename:,write:,help
 OPTS=$(getopt -a -n varfind-prepare.sh --options $SHORT --longoptions $LONG -- "$@")
 
  help_text="Usage: varfind-prepare.sh [options]\n"
@@ -15,6 +15,7 @@ help_text+="-f | --file STR .fasta or .fa reference sequence file\n"
 help_text+="-v | --vcf STR ground truth VCF file\n"
 help_text+="-s | --sample STR Sample name to be considered from the VCF file\n"
 help_text+="-r | --region STR chormosome name and region in chr:from-to format (Optional)\n"
+help_text+="-w | --write STR write logs to this file (optional, default 'varfinder.log')\n"
 help_text+="-h | --help Display this help message\n"
 
 eval set -- "$OPTS"
@@ -35,6 +36,10 @@ do
       ;;
 	-r | --region )
       region="$2"
+      shift 2
+      ;;
+	-w | --write )
+      write="$2"
       shift 2
       ;;
     -h | --help )
@@ -59,7 +64,15 @@ set -e
 
 #Get present working directory
 pwd=$(pwd)
-log="${pwd}/varfinder.log"
+#Log file
+if [ -z "$write" ] ; then
+	write='varfinder.log'
+elif ! [[ $write =~ ^[0-9a-zA-Z._-]+$ ]]; then
+	echo "Invalid log file name !"
+	echo -e $help_text
+    exit 1;
+fi
+log="${pwd}/${write}"
 
 #Function to print and log messages
 function vflog(){

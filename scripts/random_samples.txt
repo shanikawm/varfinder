@@ -1,0 +1,11 @@
+HG04153	female	SAME1840299	BEB	Bengali	SAS	South Asian Ancestry	BEB	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release
+HG03755	male	SAME1839074	STU	Tamil	SAS	South Asian Ancestry	STU	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release
+HG02401	male	SAME1839415	CDX	Dai Chinese	EAS	East Asian Ancestry	CDX	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release
+HG03366	female	SAME1840066	ESN	Esan	AFR	African Ancestry	ESN	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release
+HG00150	female	SAME124591	GBR	British	EUR	European Ancestry	GBR	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release,1000 Genomes phase 1 release,Geuvadis
+HG01961	male	SAME1839067	PEL	Peruvian	AMR	American Ancestry	PEL	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release
+HG00590	female	SAME125009	CHS	Southern Han Chinese	EAS	East Asian Ancestry	CHS	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release,1000 Genomes phase 1 release
+HG01097	male	SAME122924	PUR	Puerto Rican	AMR	American Ancestry	PUR	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release,1000 Genomes phase 1 release
+HG00276	female	SAME123424	FIN	Finnish	EUR	European Ancestry	FIN	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release,1000 Genomes phase 1 release,Geuvadis
+HG03259	female	SAME1840303	GWD	Gambian Mandinka	AFR	African Ancestry	GWD	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release,Gambian Genome Variation Project (GRCh38)
+

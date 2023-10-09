@@ -6,14 +6,15 @@
 # ./varfind-compare.sh -g HG00096.vcf.gz -v HG00096.varfind.d.vcf.gz -f HG00096.fa
 
 
-SHORT=g:,v:,f:,h
-LONG=gtvcf:,vfvcf:,file:,help
+SHORT=g:,v:,f:,w:,h
+LONG=gtvcf:,vfvcf:,file:,write:,help
 OPTS=$(getopt -a -n varfind-compare.sh --options $SHORT --longoptions $LONG -- "$@")
 
  help_text="Usage: varfind-compare.sh [options]\n"
 help_text+="-g | --gtvcf STR ground truth vcf file file\n"
 help_text+="-v | --vfvcf STR varfinder call generated vcf file.\n"
 help_text+="-f | --file STR .fasta or .fa sequence file of the sample\n"
+help_text+="-w | --write STR write logs to this file (optional, default 'varfinder.log')\n"
 help_text+="-h | --help Display this help message\n"
 
 eval set -- "$OPTS"
@@ -30,6 +31,10 @@ do
       ;;
 	-f | --file )
       file="$2"
+      shift 2
+      ;;
+	-w | --write )
+      write="$2"
       shift 2
       ;;
     -h | --help )
@@ -54,7 +59,15 @@ set -e
 
 #Get present working directory
 pwd=$(pwd)
-log="${pwd}/varfinder.log"
+#Log file
+if [ -z "$write" ] ; then
+	write='varfinder.log'
+elif ! [[ $write =~ ^[0-9a-zA-Z._-]+$ ]]; then
+	echo "Invalid log file name !"
+	echo -e $help_text
+    exit 1;
+fi
+log="${pwd}/${write}"
 
 #Function to print and log messages
 function vflog(){

@@ -8,14 +8,15 @@
 # GCF_000001405.40_GRCh38.p14_genomic.fna -> NC_000020.11 Homo sapiens chromosome 20, GRCh38.p14 Primary Assembly
 # ./varfind-filter.sh -f GCF_000001405.40_GRCh38.p14_genomic.fna.gz -n NC_000020.11 -r 20
 
-SHORT=f:,n:,r:,h
-LONG=file:,name:,rename:,help
+SHORT=f:,n:,r:,w:,h
+LONG=file:,name:,rename:,write:,help
 OPTS=$(getopt -a -n varfind-filter.sh --options $SHORT --longoptions $LONG -- "$@")
 
  help_text="Usage: varfind-filter.sh [options]\n"
 help_text+="-f | --file STR .fasta or .fa sequence file\n"
 help_text+="-n | --name STR Chromosome name to be filtered.\n"
 help_text+="-r | --rename STR rename the chromosome in output sequence file (optional)\n"
+help_text+="-w | --write STR write logs to this file (optional, default 'varfinder.log')\n"
 help_text+="-h | --help Display this help message\n"
 
 eval set -- "$OPTS"
@@ -32,6 +33,10 @@ do
       ;;
 	-r | --rename )
       rename="$2"
+      shift 2
+      ;;
+	-w | --write )
+      write="$2"
       shift 2
       ;;
     -h | --help )
@@ -56,7 +61,15 @@ set -e
 
 #Get present working directory
 pwd=$(pwd)
-log="${pwd}/varfinder.log"
+#Log file
+if [ -z "$write" ] ; then
+	write='varfinder.log'
+elif ! [[ $write =~ ^[0-9a-zA-Z._-]+$ ]]; then
+	echo "Invalid log file name !"
+	echo -e $help_text
+    exit 1;
+fi
+log="${pwd}/${write}"
 
 #Function to print and log messages
 function vflog(){

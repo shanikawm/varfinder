@@ -6,8 +6,8 @@
 # ./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m m -c b -t 48
 # ./varfind-pipe.sh -r vgindex.giraffe.gbz -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m g -c v -t 48
 
-SHORT=r:,f:,v:,l:,d:,s:,m:,c:,i:,t:,h
-LONG=ref:,file:,vcf:,length:,depth:,sim:,mapper:,caller:,image:,threads:,help
+SHORT=r:,f:,v:,l:,d:,s:,m:,c:,i:,t:,w:,h
+LONG=ref:,file:,vcf:,length:,depth:,sim:,mapper:,caller:,image:,threads:,write:,help
 OPTS=$(getopt -a -n varfind-pipe.sh --options $SHORT --longoptions $LONG -- "$@")
 
  help_text="Usage: varfind-pipe.sh [options]\n"
@@ -21,6 +21,7 @@ help_text+="-m | --mapper STR mapper/Aligner to use. 'm' for 'bwa mem', 's' for 
 help_text+="-c | --caller STR variant caller to use. 'b' for 'bcftools', 'f' for 'freebayes', 'g' for 'gatk HaplotypeCaller', 'd' for 'DeepVariant' and 'v' for 'vg call'. (Default 'b' or 'v' if the --ref is .gbz graph file)\n"
 help_text+="-i | --image STR Singularity image file if the caller run through singularity (Only for caller option 'g' and 'd')\n"
 help_text+="-t | --threads INT number of threads to use (Default 'nproc')\n"
+help_text+="-w | --write STR write logs to this file (optional, default 'varfinder.log')\n"
 help_text+="-h | --help Display this help message\n"
 
 eval set -- "$OPTS"
@@ -67,6 +68,10 @@ do
       threads="$2"
       shift 2
       ;;
+	-w | --write )
+      write="$2"
+      shift 2
+      ;;
     -h | --help )
       echo "Program : varfind-pipe.sh"
       echo "Version : 1.0"
@@ -89,7 +94,15 @@ set -e
 
 #Get present working directory
 pwd=$(pwd)
-log="${pwd}/varfinder.log"
+#Log file
+if [ -z "$write" ] ; then
+	write='varfinder.log'
+elif ! [[ $write =~ ^[0-9a-zA-Z._-]+$ ]]; then
+	echo "Invalid log file name !"
+	echo -e $help_text
+    exit 1;
+fi
+log="${pwd}/${write}"
 
 #Function to print and log messages
 function vflog(){
@@ -191,23 +204,23 @@ start=`date +%s`
 sp=$(dirname "$(realpath "$0")")
 prefix=${file%.*}
 #Pipe START
-"${sp}/varfind-reads.sh" -f $file -s $sim -l $length -d $depth
+"${sp}/varfind-reads.sh" -f $file -s $sim -l $length -d $depth -w $write
 sleep 2;
 if [ ${ref##*.} == "gbz" ]; then
-	"${sp}/varfind-map.sh" -g $ref -1 "${prefix}_reads_R1.fq.gz" -2 "${prefix}_reads_R2.fq.gz" -t $threads -m $mapper
+	"${sp}/varfind-map.sh" -g $ref -1 "${prefix}_reads_R1.fq.gz" -2 "${prefix}_reads_R2.fq.gz" -t $threads -m $mapper -w $write
 	sleep 3;
-	"${sp}/varfind-call.sh" -g $ref -m "${prefix}.gam" -c $caller -t $threads
+	"${sp}/varfind-call.sh" -g $ref -m "${prefix}.gam" -c $caller -t $threads -w $write
 else
-	"${sp}/varfind-map.sh" -f $ref -1 "${prefix}_reads_R1.fq.gz" -2 "${prefix}_reads_R2.fq.gz" -t $threads -m $mapper
+	"${sp}/varfind-map.sh" -f $ref -1 "${prefix}_reads_R1.fq.gz" -2 "${prefix}_reads_R2.fq.gz" -t $threads -m $mapper -w $write
 	sleep 2;
 	if [ -z "$image" ] ; then
-		"${sp}/varfind-call.sh" -f $ref -m "${prefix}.bam" -c $caller -t $threads
+		"${sp}/varfind-call.sh" -f $ref -m "${prefix}.bam" -c $caller -t $threads -w $write
 	else 
-		"${sp}/varfind-call.sh" -f $ref -m "${prefix}.bam" -i $image -c $caller -t $threads
+		"${sp}/varfind-call.sh" -f $ref -m "${prefix}.bam" -i $image -c $caller -t $threads -w $write
 	fi
 fi
 sleep 2;
-"${sp}/varfind-compare.sh" -g $vcf -v "${prefix}.varfind.${caller}.vcf.gz" -f $file
+"${sp}/varfind-compare.sh" -g $vcf -v "${prefix}.varfind.${caller}.vcf.gz" -f $file -w $write
 #Pipe END
 end=`date +%s`
 runtime=$(($end-$start))

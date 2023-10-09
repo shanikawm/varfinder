@@ -7,8 +7,8 @@
 # ./varfind-call.sh -g vgindex.giraffe.gbz -m HG00096.gam -c v -t 48
 # ./varfind-call.sh -f NC_000020.11.fa -m HG00096.bam -c d -i ~/singularity/deepvariant_1.5.0.sif -t 48
 
-SHORT=f:,g:,c:,i:,m:,t:,h
-LONG=file:,gbz:,caller:,image:,map:,threads:,help
+SHORT=f:,g:,c:,i:,m:,t:,w:,h
+LONG=file:,gbz:,caller:,image:,map:,threads:,write:,help
 OPTS=$(getopt -a -n varfind-call.sh --options $SHORT --longoptions $LONG -- "$@")
 
  help_text="Usage: varfind-call.sh [options]\n"
@@ -18,6 +18,7 @@ help_text+="-m | --map STR .bam or .gam (if the caller is 'vg call') sequence al
 help_text+="-c | --caller STR variant caller to use. 'b' for 'bcftools', 'f' for 'freebayes', 'g' for 'gatk HaplotypeCaller', 'd' for 'DeepVariant' and 'v' for 'vg call'. (Default 'b')\n"
 help_text+="-i | --image STR Singularity image file if the caller run through singularity (Only for caller option 'g' and 'd')\n"
 help_text+="-t | --threads INT number of threads to use (Default 'nproc')\n"
+help_text+="-w | --write STR write logs to this file (optional, default 'varfinder.log')\n"
 help_text+="-h | --help Display this help message\n"
 
 eval set -- "$OPTS"
@@ -48,6 +49,10 @@ do
       threads="$2"
       shift 2
       ;;
+	-w | --write )
+      write="$2"
+      shift 2
+      ;;
     -h | --help )
       echo "Program : varfind-call.sh"
       echo "Version : 1.0"
@@ -70,7 +75,15 @@ set -e
 
 #Get present working directory
 pwd=$(pwd)
-log="${pwd}/varfinder.log"
+#Log file
+if [ -z "$write" ] ; then
+	write='varfinder.log'
+elif ! [[ $write =~ ^[0-9a-zA-Z._-]+$ ]]; then
+	echo "Invalid log file name !"
+	echo -e $help_text
+    exit 1;
+fi
+log="${pwd}/${write}"
 
 #Function to print and log messages
 function vflog(){

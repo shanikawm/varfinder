@@ -5,8 +5,8 @@
 # Usage : varfind-reads.sh -f <sample fasta,fa file> -l <read length> -d <depth> -s <simulator> 
 # ./varfind-reads.sh -f HG00096.fa -s n -l 150 -d 60
 
-SHORT=f:,l:,d:,s:,h
-LONG=file:,length:,depth:,sim:,help
+SHORT=f:,l:,d:,s:,w:,h
+LONG=file:,length:,depth:,sim:,write:,help
 OPTS=$(getopt -a -n varfind-reads.sh --options $SHORT --longoptions $LONG -- "$@")
 
  help_text="Usage: varfind-reads.sh [options]\n"
@@ -14,6 +14,7 @@ help_text+="-f | --file STR .fasta or .fa sequence file to read from\n"
 help_text+="-l | --length INT read length (Default 100)\n"
 help_text+="-d | --depth INT read coverage depth (Default 30)\n"
 help_text+="-s | --sim STR read simulator. 'n' for NGSNGS and 'w' for wgsim (Default 'n')\n"
+help_text+="-w | --write STR write logs to this file (optional, default 'varfinder.log')\n"
 help_text+="-h | --help Display this help message\n"
 
 eval set -- "$OPTS"
@@ -34,6 +35,10 @@ do
       ;;
 	-s | --sim )
       sim="$2"
+      shift 2
+      ;;
+	-w | --write )
+      write="$2"
       shift 2
       ;;
     -h | --help )
@@ -58,7 +63,15 @@ set -e
 
 #Get present working directory
 pwd=$(pwd)
-log="${pwd}/varfinder.log"
+#Log file
+if [ -z "$write" ] ; then
+	write='varfinder.log'
+elif ! [[ $write =~ ^[0-9a-zA-Z._-]+$ ]]; then
+	echo "Invalid log file name !"
+	echo -e $help_text
+    exit 1;
+fi
+log="${pwd}/${write}"
 
 #Function to print and log messages
 function vflog(){

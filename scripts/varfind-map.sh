@@ -6,8 +6,8 @@
 # ./varfind-map.sh -f NC_000020.11.fa -1 HG00096_reads_R1.fq.gz -2 HG00096_reads_R2.fq.gz -t 48 -m m
 # ./varfind-map.sh -g vgindex.giraffe.gbz -1 HG00096_reads_R1.fq.gz -2 HG00096_reads_R2.fq.gz -t 48 -m g
 
-SHORT=f:,g:,m:,1:,2:,t:,h
-LONG=file:,gbz:,mapper:,read1:,read2:,threads:,help
+SHORT=f:,g:,m:,1:,2:,t:,w:,h
+LONG=file:,gbz:,mapper:,read1:,read2:,threads:,write:,help
 OPTS=$(getopt -a -n varfind-map.sh --options $SHORT --longoptions $LONG -- "$@")
 
  help_text="Usage: varfind-map.sh [options]\n"
@@ -17,6 +17,7 @@ help_text+="-m | --mapper STR mapper/Aligner to use. 'm' for 'bwa mem', 's' for 
 help_text+="-1 | --read1 STR pared read .fastq or .fq file 1 \n"
 help_text+="-2 | --read2 STR pared read .fastq or .fq file 2 \n"
 help_text+="-t | --threads INT number of threads to use (Default 'nproc')\n"
+help_text+="-w | --write STR write logs to this file (optional, default 'varfinder.log')\n"
 help_text+="-h | --help Display this help message\n"
 
 eval set -- "$OPTS"
@@ -47,6 +48,10 @@ do
       threads="$2"
       shift 2
       ;;
+	-w | --write )
+      write="$2"
+      shift 2
+      ;;
     -h | --help )
       echo "Program : varfind-map.sh"
       echo "Version : 1.0"
@@ -69,7 +74,15 @@ set -e
 
 #Get present working directory
 pwd=$(pwd)
-log="${pwd}/varfinder.log"
+#Log file
+if [ -z "$write" ] ; then
+	write='varfinder.log'
+elif ! [[ $write =~ ^[0-9a-zA-Z._-]+$ ]]; then
+	echo "Invalid log file name !"
+	echo -e $help_text
+    exit 1;
+fi
+log="${pwd}/${write}"
 
 #Function to print and log messages
 function vflog(){
