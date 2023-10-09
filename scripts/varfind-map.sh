@@ -151,7 +151,7 @@ elif [[ $mapper == 's' ]] ; then
 elif [[ $mapper == 'b' ]] ; then
 	vflog ">>> Aligning reads to the reference \"$(basename $file)\" using \"bowtie2\"";
 	bowtie2-build "${file}" "${file}.bt2-idx"
-	bowtie2 -x "${file}.bt2-idx" -p $threads -1 "${read1}" -2 "${read2}" | samtools sort - > "${pwd}/${prefix}.bam"
+	bowtie2 -x "${file}.bt2-idx" -p $threads --rg-id $prefix --rg "SM:${prefix}" --rg "LB:${prefix}" -1 "${read1}" -2 "${read2}" | samtools sort - > "${pwd}/${prefix}.bam"
 elif [[ $mapper == 'g' ]] ; then
 	vflog ">>> Aligning reads to the graph \"$(basename $gbz)\" using \"vg giraffe\"";
 	vg giraffe -t $threads -Z $gbz -D 150 --fragment-mean 150 --fragment-stdev 0 -f "${read1}" -f "${read2}" > "${pwd}/${prefix}.gam"
