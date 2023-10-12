@@ -74,3 +74,24 @@ singularity run -B /${PWD}:/data  gatk_4.4.0.0.sif gatk
 
 ```
 
+#### Preparing and running DeepVariant singularity image
+
+```
+singularity pull docker://google/deepvariant:1.5.0
+```
+
+Example calling variant 
+
+```
+tabix Sample_2.bam
+singularity run -B ${PWD}:/data deepvariant_1.5.0.sif /opt/deepvariant/bin/run_deepvariant \
+--model_type=WES --ref=/data/GRCh38_chr20.fa --reads=/data/Sample_2.bam --output_vcf=/data/dp_sample_2.vcf
+```
+
+For GPU version 
+
+```
+singularity pull docker://google/deepvariant:"1.5.0-gpu"
+```
+
+
