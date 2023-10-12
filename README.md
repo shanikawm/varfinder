@@ -2,7 +2,7 @@
 ## Comprehensive Tool for Simulating Reads and Comparing the Read Mappings and Variant Calling Algorithms
 
 ## Installation
-Make sure the dependencies are satisfied. Then copy the file released script file set. 
+Make sure the dependencies are satisfied. Then, copy the files in the released script set. 
 ### Dependencies
 **OS:** Any Unix version which satisfies the below dependencies. Tested with Enterprise Linux 7
 
