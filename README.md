@@ -18,6 +18,15 @@ Make sure the dependencies are satisfied. Then, copy the files in the released s
 10. [GATK](https://github.com/broadinstitute/gatk) (Tested version singularity image [gatk_4.4.0.0.sif](https://hub.docker.com/r/broadinstitute/gatk))
 11. [DeepVariant](https://github.com/google/deepvariant) (Tested with singularity image [deepvariant_1.5.0.sif](https://hub.docker.com/r/google/deepvariant))
 
+## Workflow
+The workflow diagram with tools used and files generated in each step is shown in the below diagram. 
+![varfind](https://github.com/shanikawm/varfinder/assets/8539123/d4ef6778-aef4-4f74-85d2-d8560918e0d3)
+
+------
+## Example
+### Preparing Input files
+-------
+## Appendix
 #### Preparing and running GATK singularity image
 ```
 singularity pull docker://broadinstitute/gatk:4.4.0.0
