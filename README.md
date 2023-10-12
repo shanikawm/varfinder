@@ -18,6 +18,59 @@ Make sure the dependencies are satisfied. Then, copy the files in the released s
 10. [GATK](https://github.com/broadinstitute/gatk) (Tested version singularity image [gatk_4.4.0.0.sif](https://hub.docker.com/r/broadinstitute/gatk))
 11. [DeepVariant](https://github.com/google/deepvariant) (Tested with singularity image [deepvariant_1.5.0.sif](https://hub.docker.com/r/google/deepvariant))
 
-#### Preparing GATK singularity image
+#### Preparing and running GATK singularity image
+```
+singularity pull docker://broadinstitute/gatk:4.4.0.0
+ls -sh
+total 2.4G
+2.4G gatk_4.4.0.0.sif
+```
 
+Running the tool
+
+```
+singularity run -B /${PWD}:/data  gatk_4.4.0.0.sif gatk
+
+ Usage template for all tools (uses --spark-runner LOCAL when used with a Spark tool)
+    gatk AnyTool toolArgs
+
+ Usage template for Spark tools (will NOT work on non-Spark tools)
+    gatk SparkTool toolArgs  [ -- --spark-runner <LOCAL | SPARK | GCS> sparkArgs ]
+
+ Getting help
+    gatk --list       Print the list of available tools
+
+    gatk Tool --help  Print help on a particular tool
+
+ Configuration File Specification
+     --gatk-config-file                PATH/TO/GATK/PROPERTIES/FILE
+
+ gatk forwards commands to GATK and adds some sugar for submitting spark jobs
+
+   --spark-runner <target>    controls how spark tools are run
+     valid targets are:
+     LOCAL:      run using the in-memory spark runner
+     SPARK:      run using spark-submit on an existing cluster 
+                 --spark-master must be specified
+                 --spark-submit-command may be specified to control the Spark submit command
+                 arguments to spark-submit may optionally be specified after -- 
+     GCS:        run using Google cloud dataproc
+                 commands after the -- will be passed to dataproc
+                 --cluster <your-cluster> must be specified after the --
+                 spark properties and some common spark-submit parameters will be translated 
+                 to dataproc equivalents
+
+   --dry-run      may be specified to output the generated command line without running it
+   --java-options 'OPTION1[ OPTION2=Y ... ]'   optional - pass the given string of options to the 
+                 java JVM at runtime.  
+                 Java options MUST be passed inside a single string with space-separated values.
+
+   --debug-port <number> sets up a Java VM debug agent to listen to debugger connections on a
+                         particular port number. This in turn will add the necessary java VM arguments
+                         so that you don't need to explicitly indicate these using --java-options.
+   --debug-suspend       sets the Java VM debug agent up so that the run get immediatelly suspended
+                         waiting for a debugger to connect. By default the port number is 5005 but
+                         can be customized using --debug-port
+
+```
 
