@@ -10,7 +10,7 @@ Make sure the dependencies are satisfied. Then copy the file released script fil
 2. [SAMtools](https://github.com/samtools/samtools) (Tested with Version: 1.17 (using htslib 1.17))
 3. [BCFtools](https://github.com/samtools/bcftools) (Tested with Version: 1.17 (using htslib 1.17))
 4. [wgsim](https://github.com/lh3/wgsim) (Tested with Version: 1.17)
-5. [ngsngs](https://github.com/RAHenriksen/NGSNGS) (Testted with version 0.9.0)
+5. [ngsngs](https://github.com/RAHenriksen/NGSNGS) (Tested with version 0.9.0)
 6. [bwa](https://github.com/lh3/bwa) (Tested with version 0.7.17-r1198-dirty)
 7. [bowtie2](https://github.com/BenLangmead/bowtie2) (Tested with version 2.5.1)
 8. [vg](https://github.com/vgteam/vg) (Tested with version v1.51.0 "Quellenhof")
