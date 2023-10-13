@@ -1,5 +1,5 @@
 # VarFinder
-## Comprehensive Tool for Simulating Reads and Comparing the Read Mappings and Variant Calling Algorithms
+## Genomics Workflow Tool for Simulating Reads, Comparing the Read Alignments and Variant Calling Algorithms
 
 ## Installation
 Make sure the dependencies are satisfied. Then, copy the files in the released script set. 
