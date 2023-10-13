@@ -23,8 +23,67 @@ The workflow diagram with tools used and files generated in each step is shown i
 ![varfind](https://github.com/shanikawm/varfinder/assets/8539123/d4ef6778-aef4-4f74-85d2-d8560918e0d3)
 
 ------
-## Example
+## Example Using Genome assembly GRCh38.p14 Chromosome 20  
 ### Preparing Input files
+
+Here, we use reference [Genome assembly GRCh38.p14](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.40/). Download it and get the file `GCF_000001405.40_GRCh38.p14_genomic.fna`. 
+Filtering the chromosome 20 can be done using the following command. 
+
+```
+./varfind-filter.sh -f GCF_000001405.40_GRCh38.p14_genomic.fna -n NC_000020.11 -r 20
+```
+```
+./varfind-filter.sh -h
+Program : varfind-filter.sh
+Version : 1.0
+Usage: varfind-filter.sh [options]
+-f | --file STR .fasta or .fa sequence file
+-n | --name STR Chromosome name to be filtered.
+-r | --rename STR rename the chromosome in output sequence file (optional)
+-w | --write STR write logs to this file (optional, default 'varfinder.log')
+-h | --help Display this help message
+```
+This will produce the files `NC_000020.11.fa` and `NC_000020.11.fa.fai`
+Next, we'll prepare a sequence file and a ground truth VCF file for a random sample (HG00096) of the [GRCh38](http://hgdownload.soe.ucsc.edu/gbdb/hg38/1000Genomes/ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz) VCF file. Download that file and use the below command. We'll restrict the example for the region 30000000-32000000
+
+```
+./varfind-prepare.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG00096
+```
+```
+./varfind-prepare.sh -h
+Program : varfind-prepare.sh
+Version : 1.0
+Usage: varfind-prepare.sh [options]
+-f | --file STR .fasta or .fa reference sequence file
+-v | --vcf STR ground truth VCF file
+-s | --sample STR Sample name to be considered from the VCF file
+-r | --region STR chromosome name and region in chr:from-to format (Optional)
+-w | --write STR write logs to this file (optional, default 'varfinder.log')
+-h | --help Display this help message
+```
+This will produce the sequence file `HG00096.fa`, index `HG00096.fa.fai`, and the ground truth VCF file `HG00096.vcf.gz`.
+
+If we need to consider the graph-based method as well, we have to prepare a reference graph as well using the below command. Here we use 5 or more random samples other than the selected sample for the analysis. 
+
+```
+./varfind-graph.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG00097,HG00099,HG00100,HG00101,HG00102
+```
+```
+./varfind-graph.sh -h
+Program : varfind-graph.sh
+Version : 1.0
+Usage: varfind-prepare.sh [options]
+-f | --file STR .fasta or .fa reference sequence file
+-v | --vcf STR the main VCF file
+-s | --sample STR Sample names (at least 4 other than seleted sample for the simulation) to be considered from the VCF file
+-r | --region STR chromosome name and region in chr:from-to format (Optional)
+-w | --write STR write logs to this file (optional, default 'varfinder.log')
+-h | --help Display this help message
+```
+
+
+
+
 -------
 ## Appendix
 #### Preparing and running GATK singularity image
