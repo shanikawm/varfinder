@@ -2,7 +2,7 @@
 ./varfind-prepare.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG00096
 ./varfind-graph.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG00097,HG00099,HG00100,HG00101,HG00102
 ./varfind-reads.sh -f HG00096.fa -s n -l 100 -d 60
-./varfind-map.sh -f NC_000020.11.fa -1 HG00096_reads_R1.fq.gz -2 HG00096_reads_R2.fq.gz -t 48
+./varfind-map.sh -f NC_000020.11.fa -1 HG00096_reads_R1.fq.gz -2 HG00096_reads_R2.fq.gz -t 48 -m m
 ./varfind-call.sh -f NC_000020.11.fa -m HG00096.bam -c b -t 48
 ./varfind-call.sh -g vgindex.giraffe.gbz -m HG00096.gam -c v -t 48
 ./varfind-compare.sh -g HG00096.vcf.gz -v HG00096.varfind.d.vcf.gz -f HG00096.fa
