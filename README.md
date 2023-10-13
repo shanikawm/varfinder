@@ -430,5 +430,3 @@ For GPU version
 ```
 singularity pull docker://google/deepvariant:"1.5.0-gpu"
 ```
-
-
