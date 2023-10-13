@@ -271,7 +271,7 @@ The final report can be tabularized like below.
 | wgsim     | vg giraffe | vg call     | 254      | 1886              | 271                 | 1590            | 258               | 22           | 18             | 1568         | 240            | 1808 | 40    | 1997515 | 349  | 83.1389         | 99.9988         | 90.2186      | 88.5608           | 99.999            | 90.7372        | 83.8201             | 99.9979             | 90.2871          |
 | ngsngs    | vg giraffe | vg call     | 276      | 1886              | 271                 | 1577            | 256               | 8            | 16             | 1569         | 240            | 1809 | 24    | 1997531 | 348  | 83.1919         | 99.9995         | 90.615       | 88.5608           | 99.9991           | 91.0815        | 83.8664             | 99.9987             | 90.6766          |
 
-### Test workflow for multiple samples
+### Test the workflows for multiple samples
 
 Let's assume we want to run the workflow and see the results for the multiple samples below. 
 
