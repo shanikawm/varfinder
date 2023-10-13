@@ -29,10 +29,10 @@ The workflow diagram with tools used and files generated in each step is shown i
 Here, we use reference [Genome assembly GRCh38.p14](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.40/). Download it and get the file `GCF_000001405.40_GRCh38.p14_genomic.fna`. 
 Filtering the chromosome 20 can be done using the following command. 
 
-```
+```bash
 ./varfind-filter.sh -f GCF_000001405.40_GRCh38.p14_genomic.fna -n NC_000020.11 -r 20
 ```
-```
+```bash
 ./varfind-filter.sh -h
 Program : varfind-filter.sh
 Version : 1.0
@@ -46,10 +46,10 @@ Usage: varfind-filter.sh [options]
 This will produce the files `NC_000020.11.fa` and `NC_000020.11.fa.fai`
 Next, we'll prepare a sequence file and a ground truth VCF file for a random sample (HG00096) of the [GRCh38](http://hgdownload.soe.ucsc.edu/gbdb/hg38/1000Genomes/ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz) VCF file. Download that file and use the below command. We'll restrict the example for the region 30000000-32000000
 
-```
+```bash
 ./varfind-prepare.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG00096
 ```
-```
+```bash
 ./varfind-prepare.sh -h
 Program : varfind-prepare.sh
 Version : 1.0
@@ -65,10 +65,10 @@ This will produce the sequence file `HG00096.fa`, index `HG00096.fa.fai`, and th
 
 If we need to consider the graph-based method as well, we have to prepare a reference graph using the below command. Here, we use five or more random samples other than the selected sample for the analysis. 
 
-```
+```bash
 ./varfind-graph.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG00097,HG00099,HG00100,HG00101,HG00102
 ```
-```
+```bash
 ./varfind-graph.sh -h
 Program : varfind-graph.sh
 Version : 1.0
@@ -84,10 +84,10 @@ Usage: varfind-prepare.sh [options]
 ### 1. Executing the workflow (ngsngs -> bwa mem -> bcftools call)
 First, we'll simulate the reading using the command `varfind-reads.sh` with a read length of 100 and a coverage of 60.  
 
-```
+```bash
 ./varfind-reads.sh -f HG00096.fa -s n -l 100 -d 60
 ```
-```
+```bash
 ./varfind-reads.sh -h
 Program : varfind-reads.sh
 Version : 1.0
@@ -104,10 +104,10 @@ This will produce paired read files named `HG00096_reads_R1.fq.gz` and `HG00096_
 
 The next step is to map the reads to the reference sequence using the command `varfind-map.sh`
 
-```
+```bash
 ./varfind-map.sh -f NC_000020.11.fa -1 HG00096_reads_R1.fq.gz -2 HG00096_reads_R2.fq.gz -t 48 -m m
 ```
-```
+```bash
 ./varfind-map.sh -h
 Program : varfind-map.sh
 Version : 1.0
@@ -126,10 +126,10 @@ This will produce a bam file called `HG00096.bam`.
 
 Now we can do the variant calling using `varfind-call.sh`. 
 
-```
+```bash
 ./varfind-call.sh -f NC_000020.11.fa -m HG00096.bam -c b -t 48
 ```
-```
+```bash
 ./varfind-call.sh -h
 Program : varfind-call.sh
 Version : 1.0
@@ -147,10 +147,10 @@ This step will create a VCF file called `HG00096.varfind.b.vcf.gz`.
 
 The final step is to compare the 2 VCF files `HG00096.varfind.b.vcf.gz` and `HG00096.vcf.gz` using `varfind-compare.sh`.
 
-```
+```bash
 ./varfind-compare.sh -g HG00096.vcf.gz -v HG00096.varfind.b.vcf.gz -f HG00096.fa
 ```
-```
+```bash
 ./varfind-compare.sh -h
 Program : varfind-compare.sh
 Version : 1.0
@@ -192,12 +192,12 @@ This command will produce the below report with all the stats.
 
 In this scenario, the mapping step and the calling step will be different below. 
 
-```
+```bash
 ./varfind-map.sh -g vgindex.giraffe.gbz -1 HG00096_reads_R1.fq.gz -2 HG00096_reads_R2.fq.gz -t 48 -m g
 ```
 This will produce a file called `HG00096.fa`, which can be used in the next step to call the variants using `varfind-call.sh`.
 
-```
+```bash
 ./varfind-call.sh -g vgindex.giraffe.gbz -m HG00096.gam -c v -t 48
 ```
 
@@ -205,14 +205,14 @@ This will produce a file called `HG00096.fa`, which can be used in the next step
 
 It is possible to execute the above-discussed workflow using the command `varfind-pipe.sh`. 
 e.g:
-```
+```bash
 ./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m m -c b -t 48
 #For graph approach
 ./varfind-pipe.sh -r vgindex.giraffe.gbz -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m g -c v -t 48
 ```
 
 For all 26 workflows, we can use the 26 commands. 
-```
+```bash
 ./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m m -c b -t 48
 ./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m m -c f -t 48
 ./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m m -c g -t 48 -i ~/singularity/gatk_4.4.0.0.sif
