@@ -271,6 +271,88 @@ The final report can be tabularized like below.
 | wgsim     | vg giraffe | vg call     | 254      | 1886              | 271                 | 1590            | 258               | 22           | 18             | 1568         | 240            | 1808 | 40    | 1997515 | 349  | 83.1389         | 99.9988         | 90.2186      | 88.5608           | 99.999            | 90.7372        | 83.8201             | 99.9979             | 90.2871          |
 | ngsngs    | vg giraffe | vg call     | 276      | 1886              | 271                 | 1577            | 256               | 8            | 16             | 1569         | 240            | 1809 | 24    | 1997531 | 348  | 83.1919         | 99.9995         | 90.615       | 88.5608           | 99.9991           | 91.0815        | 83.8664             | 99.9987             | 90.6766          |
 
+### Test workflow for multiple samples
+
+Let's assume we want to run the workflow and see the results for the multiple samples below. 
+
+```
+HG04153	female	SAME1840299	BEB	Bengali	SAS	South Asian Ancestry	BEB	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release
+HG03755	male	SAME1839074	STU	Tamil	SAS	South Asian Ancestry	STU	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release
+HG02401	male	SAME1839415	CDX	Dai Chinese	EAS	East Asian Ancestry	CDX	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release
+HG03366	female	SAME1840066	ESN	Esan	AFR	African Ancestry	ESN	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release
+HG00150	female	SAME124591	GBR	British	EUR	European Ancestry	GBR	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release,1000 Genomes phase 1 release,Geuvadis
+HG01961	male	SAME1839067	PEL	Peruvian	AMR	American Ancestry	PEL	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release
+HG00590	female	SAME125009	CHS	Southern Han Chinese	EAS	East Asian Ancestry	CHS	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release,1000 Genomes phase 1 release
+HG01097	male	SAME122924	PUR	Puerto Rican	AMR	American Ancestry	PUR	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release,1000 Genomes phase 1 release
+HG00276	female	SAME123424	FIN	Finnish	EUR	European Ancestry	FIN	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release,1000 Genomes phase 1 release,Geuvadis
+HG03259	female	SAME1840303	GWD	Gambian Mandinka	AFR	African Ancestry	GWD	1000 Genomes on GRCh38,1000 Genomes 30x on GRCh38,1000 Genomes phase 3 release,Gambian Genome Variation Project (GRCh38)
+```
+
+We can use the scripts.
+
+To prepare samples `prep_samples.sh` 
+```bash
+#!/usr/bin/bash
+./varfind-prepare.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG04153;
+./varfind-prepare.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG03755;
+./varfind-prepare.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG02401;
+./varfind-prepare.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG03366;
+./varfind-prepare.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG00150;
+./varfind-prepare.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG01961;
+./varfind-prepare.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG00590;
+./varfind-prepare.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG01097;
+./varfind-prepare.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG00276;
+./varfind-prepare.sh -r 20:30000000-32000000 -f NC_000020.11.fa -v ALL.chr20.shapeit2_integrated_snvindels_v2a_27022019.GRCh38.phased.vcf.gz -s HG03259;
+```
+
+To run all 26 workflows, `qa26.sh`
+
+```bash
+#!/usr/bin/bash
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s w -m m -c b -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s w -m m -c f -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s w -m m -c g -t 48 -i ~/singularity/gatk_4.4.0.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s w -m m -c d -t 48 -i ~/singularity/deepvariant_1.5.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s n -m m -c b -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s n -m m -c f -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s n -m m -c g -t 48 -i ~/singularity/gatk_4.4.0.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s n -m m -c d -t 48 -i ~/singularity/deepvariant_1.5.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s w -m s -c b -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s w -m s -c f -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s w -m s -c g -t 48 -i ~/singularity/gatk_4.4.0.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s w -m s -c d -t 48 -i ~/singularity/deepvariant_1.5.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s n -m s -c b -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s n -m s -c f -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s n -m s -c g -t 48 -i ~/singularity/gatk_4.4.0.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s n -m s -c d -t 48 -i ~/singularity/deepvariant_1.5.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s w -m b -c b -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s w -m b -c f -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s w -m b -c g -t 48 -i ~/singularity/gatk_4.4.0.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s w -m b -c d -t 48 -i ~/singularity/deepvariant_1.5.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s n -m b -c b -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s n -m b -c f -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s n -m b -c g -t 48 -i ~/singularity/gatk_4.4.0.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s n -m b -c d -t 48 -i ~/singularity/deepvariant_1.5.0.sif
+./varfind-pipe.sh -r vgindex.giraffe.gbz -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s w -m g -c v -t 48
+./varfind-pipe.sh -r vgindex.giraffe.gbz -f "${1}.fa" -v "${1}.vcf.gz" -w "${1}.log" -l 100 -d 60 -s n -m g -c v -t 48
+```
+
+And to execute all `qa26_samples.sh`
+
+```bash
+#!/usr/bin/bash
+./qa26.sh HG04153;
+./qa26.sh HG03755;
+./qa26.sh HG02401;
+./qa26.sh HG03366;
+./qa26.sh HG00150;
+./qa26.sh HG01961;
+./qa26.sh HG00590;
+./qa26.sh HG01097;
+./qa26.sh HG00276;
+./qa26.sh HG03259;
+```
+
 -------
 ## Appendix
 #### Preparing and running GATK singularity image
