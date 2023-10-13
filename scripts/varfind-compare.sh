@@ -186,9 +186,9 @@ vflog  "$(printf "|  INDEL Sensitivity                | %'9.4f%% |\n" ${indel_se
 vflog  "$(printf "|  INDEL Specificity                | %'9.4f%% |\n" ${indel_specificity})"
 vflog  "$(printf "|  INDEL F1 Score                   | %'9.4f%% |\n" ${indel_f1})"
 vflog  " "
-vflog  "$(printf "|  Overall Sensitivity              | %'9.4f%%$ |\n" ${sensitivity})" 
-vflog  "$(printf "|  Overall Specificity              | %'9.4f%%$ |\n" ${specificity})"
-vflog  "$(printf "|  Overall F1 Score                 | %'9.4f%%$ |\n" ${f1})"
+vflog  "$(printf "|  Overall Sensitivity              | %'9.4f%% |\n" ${sensitivity})" 
+vflog  "$(printf "|  Overall Specificity              | %'9.4f%% |\n" ${specificity})"
+vflog  "$(printf "|  Overall F1 Score                 | %'9.4f%% |\n" ${f1})"
 
 vflog  " "
 

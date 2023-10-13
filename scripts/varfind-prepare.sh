@@ -14,7 +14,7 @@ OPTS=$(getopt -a -n varfind-prepare.sh --options $SHORT --longoptions $LONG -- "
 help_text+="-f | --file STR .fasta or .fa reference sequence file\n"
 help_text+="-v | --vcf STR ground truth VCF file\n"
 help_text+="-s | --sample STR Sample name to be considered from the VCF file\n"
-help_text+="-r | --region STR chormosome name and region in chr:from-to format (Optional)\n"
+help_text+="-r | --region STR chromosome name and region in chr:from-to format (Optional)\n"
 help_text+="-w | --write STR write logs to this file (optional, default 'varfinder.log')\n"
 help_text+="-h | --help Display this help message\n"
 
