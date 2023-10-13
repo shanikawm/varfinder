@@ -184,11 +184,92 @@ This command will produce the below report with all the stats.
 | INDEL Sensitivity | 14.7601% |
 | INDEL Specificity | 99.9895% |
 | INDEL F1 Score | 15.4142% |
-| Overall Sensitivity | 88.9661 |
-| Overall Specificity | 99.9837 |
-| Overall F1 Score | 87.2074 |
+| Overall Sensitivity | 88.9661% |
+| Overall Specificity | 99.9837% |
+| Overall F1 Score | 87.2074% |
 
+### 2. Executing the graph-based workflow (ngsngs -> vg giraffe -> vg call)
 
+In this scenario, the mapping step and the calling step will be different below. 
+
+```
+./varfind-map.sh -g vgindex.giraffe.gbz -1 HG00096_reads_R1.fq.gz -2 HG00096_reads_R2.fq.gz -t 48 -m g
+```
+This will produce a file called `HG00096.fa`, which can be used in the next step to call the variants using `varfind-call.sh`.
+
+```
+./varfind-call.sh -g vgindex.giraffe.gbz -m HG00096.gam -c v -t 48
+```
+
+### 3. Executing the whole workflow using `varfind-pipe.sh`
+
+It is possible to execute the above-discussed workflow using the command `varfind-pipe.sh`. 
+e.g:
+```
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m m -c b -t 48
+#For graph approach
+./varfind-pipe.sh -r vgindex.giraffe.gbz -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m g -c v -t 48
+```
+
+For all 26 workflows, we can use the 26 commands. 
+```
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m m -c b -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m m -c f -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m m -c g -t 48 -i ~/singularity/gatk_4.4.0.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m m -c d -t 48 -i ~/singularity/deepvariant_1.5.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m m -c b -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m m -c f -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m m -c g -t 48 -i ~/singularity/gatk_4.4.0.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m m -c d -t 48 -i ~/singularity/deepvariant_1.5.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m s -c b -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m s -c f -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m s -c g -t 48 -i ~/singularity/gatk_4.4.0.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m s -c d -t 48 -i ~/singularity/deepvariant_1.5.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m s -c b -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m s -c f -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m s -c g -t 48 -i ~/singularity/gatk_4.4.0.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m s -c d -t 48 -i ~/singularity/deepvariant_1.5.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m b -c b -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m b -c f -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m b -c g -t 48 -i ~/singularity/gatk_4.4.0.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m b -c d -t 48 -i ~/singularity/deepvariant_1.5.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m b -c b -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m b -c f -t 48
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m b -c g -t 48 -i ~/singularity/gatk_4.4.0.0.sif
+./varfind-pipe.sh -r NC_000020.11.fa -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m b -c d -t 48 -i ~/singularity/deepvariant_1.5.0.sif
+./varfind-pipe.sh -r vgindex.giraffe.gbz -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s w -m g -c v -t 48
+./varfind-pipe.sh -r vgindex.giraffe.gbz -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m g -c v -t 48
+```
+
+The final report can be tabularized like below. 
+| Simulator | Mapper     | Caller      | Run Time | Ground Truth SNPs | Ground Truth INDELs | Identified SNPs | Identified INDELs | Private SNPs | Private INDELs | Matched SNPs | Matched INDELs | TP   | FP    | TN      | FN   | SNP Sensitivity | SNP Specificity | SNP F1 Score | INDEL Sensitivity | INDEL Specificity | INDEL F1 Score | Overall Sensitivity | Overall Specificity | Overall F1 Score |
+| :-------- | :--------- | :---------- | -------: | ----------------: | ------------------: | --------------: | ----------------: | -----------: | -------------: | -----------: | -------------: | ---: | ----: | ------: | ---: | --------------: | --------------: | -----------: | ----------------: | ----------------: | -------------: | ------------------: | ------------------: | ---------------: |
+| wgsim     | bwa mem    | bcftools    | 72       | 1886              | 271                 | 1996            | 248               | 117          | 208            | 1879         | 40             | 1919 | 325   | 1997230 | 238  | 99.6288         | 99.9941         | 96.8057      | 14.7601           | 99.9895           | 15.4142        | 88.9661             | 99.9837             | 87.2074          |
+| wgsim     | bwa mem    | freebayes   | 91       | 1886              | 271                 | 1876            | 239               | 144          | 239            | 1732         | 0              | 1732 | 383   | 1997172 | 425  | 91.8345         | 99.9927         | 92.0786      | 0                 | 99.988            | 0              | 80.2967             | 99.9808             | 81.0861          |
+| wgsim     | bwa mem    | gatk        | 126      | 1886              | 271                 | 1885            | 254               | 21           | 21             | 1864         | 233            | 2097 | 42    | 1997513 | 60   | 98.8335         | 99.9989         | 98.8597      | 85.9778           | 99.9989           | 88.7619        | 97.2183             | 99.9978             | 97.6256          |
+| wgsim     | bwa mem    | DeepVariant | 112      | 1886              | 271                 | 1943            | 259               | 73           | 27             | 1870         | 232            | 2102 | 100   | 1997455 | 55   | 99.1516         | 99.9963         | 97.6756      | 85.6088           | 99.9986           | 87.5471        | 97.4501             | 99.9949             | 96.4441          |
+| ngsngs    | bwa mem    | bcftools    | 84       | 1886              | 271                 | 2072            | 7                 | 223          | 4              | 1849         | 3              | 1852 | 227   | 1997328 | 305  | 98.0381         | 99.9888         | 93.431       | 1.107             | 99.9997           | 2.1582         | 85.8599             | 99.9886             | 87.4409          |
+| ngsngs    | bwa mem    | freebayes   | 107      | 1886              | 271                 | 1935            | 238               | 217          | 238            | 1718         | 0              | 1718 | 455   | 1997100 | 439  | 91.0922         | 99.9891         | 89.9241      | 0                 | 99.988            | 0              | 79.6476             | 99.9772             | 79.3533          |
+| ngsngs    | bwa mem    | gatk        | 136      | 1886              | 271                 | 1772            | 230               | 12           | 17             | 1760         | 213            | 1973 | 29    | 1997526 | 184  | 93.3191         | 99.9993         | 96.2274      | 78.5977           | 99.9991           | 85.0299        | 91.4696             | 99.9985             | 94.8785          |
+| ngsngs    | bwa mem    | DeepVariant | 129      | 1886              | 271                 | 2001            | 255               | 139          | 25             | 1862         | 230            | 2092 | 164   | 1997391 | 65   | 98.7274         | 99.993          | 95.8065      | 84.8708           | 99.9987           | 87.4524        | 96.9865             | 99.9917             | 94.8107          |
+| wgsim     | bwa sampe  | bcftools    | 212      | 1886              | 271                 | 2053            | 242               | 173          | 202            | 1880         | 40             | 1920 | 375   | 1997180 | 237  | 99.6818         | 99.9913         | 95.4556      | 14.7601           | 99.9898           | 15.5945        | 89.0125             | 99.9812             | 86.2533          |
+| wgsim     | bwa sampe  | freebayes   | 224      | 1886              | 271                 | 1968            | 232               | 238          | 232            | 1730         | 0              | 1730 | 470   | 1997085 | 427  | 91.7285         | 99.988          | 89.7768      | 0                 | 99.9883           | 0              | 80.2039             | 99.9764             | 79.4124          |
+| wgsim     | bwa sampe  | gatk        | 269      | 1886              | 271                 | 1912            | 254               | 47           | 23             | 1865         | 231            | 2096 | 70    | 1997485 | 61   | 98.8865         | 99.9976         | 98.2095      | 85.2398           | 99.9988           | 88             | 97.1719             | 99.9964             | 96.9696          |
+| wgsim     | bwa sampe  | DeepVariant | 249      | 1886              | 271                 | 2025            | 271               | 155          | 39             | 1870         | 232            | 2102 | 194   | 1997361 | 55   | 99.1516         | 99.9922         | 95.6277      | 85.6088           | 99.998            | 85.6088        | 97.4501             | 99.9902             | 94.4082          |
+| ngsngs    | bwa sampe  | bcftools    | 213      | 1886              | 271                 | 50              | 63                | 35           | 53             | 15           | 10             | 25   | 88    | 1997467 | 2132 | 0.7953          | 99.9982         | 1.5495       | 3.69              | 99.9973           | 5.988          | 1.159               | 99.9955             | 2.2026           |
+| ngsngs    | bwa sampe  | freebayes   | 240      | 1886              | 271                 | 2070            | 189               | 350          | 189            | 1720         | 0              | 1720 | 539   | 1997016 | 437  | 91.1983         | 99.9824         | 86.9565      | 0                 | 99.9905           | 0              | 79.7403             | 99.973              | 77.8985          |
+| ngsngs    | bwa sampe  | gatk        | 276      | 1886              | 271                 | 1969            | 210               | 158          | 17             | 1811         | 193            | 2004 | 175   | 1997380 | 153  | 96.0233         | 99.992          | 93.9559      | 71.2177           | 99.9991           | 80.2494        | 92.9068             | 99.9912             | 92.4354          |
+| ngsngs    | bwa sampe  | DeepVariant | 271      | 1886              | 271                 | 2179            | 231               | 322          | 30             | 1857         | 201            | 2058 | 352   | 1997203 | 99   | 98.4623         | 99.9838         | 91.3653      | 74.1697           | 99.9984           | 80.0796        | 95.4102             | 99.9823             | 90.1248          |
+| wgsim     | bowtie2    | bcftools    | 167      | 1886              | 271                 | 4950            | 327               | 3078         | 291            | 1872         | 36             | 1908 | 3369  | 1994186 | 249  | 99.2576         | 99.8459         | 54.7688      | 13.2841           | 99.9854           | 12.0401        | 88.4561             | 99.8313             | 51.3317          |
+| wgsim     | bowtie2    | freebayes   | 197      | 1886              | 271                 | 14428           | 866               | 12738        | 866            | 1690         | 0              | 1690 | 13604 | 1983951 | 467  | 89.6076         | 99.3624         | 20.7184      | 0                 | 99.9566           | 0              | 78.3495             | 99.3189             | 19.3685          |
+| wgsim     | bowtie2    | gatk        | 235      | 1886              | 271                 | 3689            | 384               | 1970         | 175            | 1719         | 209            | 1928 | 2145  | 1995410 | 229  | 91.1452         | 99.9013         | 61.6681      | 77.1217           | 99.9912           | 63.8167        | 89.3834             | 99.8926             | 61.894           |
+| wgsim     | bowtie2    | DeepVariant | 219      | 1886              | 271                 | 8267            | 764               | 6395         | 537            | 1872         | 227            | 2099 | 6932  | 1990623 | 58   | 99.2576         | 99.6799         | 36.8758      | 83.7638           | 99.9731           | 43.8647        | 97.311              | 99.6529             | 37.5223          |
+| ngsngs    | bowtie2    | bcftools    | 182      | 1886              | 271                 | 1923            | 187               | 78           | 155            | 1845         | 32             | 1877 | 233   | 1997322 | 280  | 97.826          | 99.996          | 96.8758      | 11.8081           | 99.9922           | 13.9737        | 87.019              | 99.9883             | 87.9775          |
+| ngsngs    | bowtie2    | freebayes   | 201      | 1886              | 271                 | 2381            | 226               | 656          | 226            | 1725         | 0              | 1725 | 882   | 1996673 | 432  | 91.4634         | 99.9671         | 80.853       | 0                 | 99.9886           | 0              | 79.9721             | 99.9558             | 72.4181          |
+| ngsngs    | bowtie2    | gatk        | 227      | 1886              | 271                 | 1566            | 167               | 22           | 12             | 1544         | 155            | 1699 | 34    | 1997521 | 458  | 81.8663         | 99.9988         | 89.4553      | 57.1955           | 99.9993           | 70.7762        | 78.7668             | 99.9982             | 87.3521          |
+| ngsngs    | bowtie2    | DeepVariant | 223      | 1886              | 271                 | 2086            | 238               | 233          | 31             | 1853         | 207            | 2060 | 264   | 1997291 | 97   | 98.2502         | 99.9883         | 93.3031      | 76.3837           | 99.9984           | 81.3359        | 95.503              | 99.9867             | 91.9437          |
+| wgsim     | vg giraffe | vg call     | 254      | 1886              | 271                 | 1590            | 258               | 22           | 18             | 1568         | 240            | 1808 | 40    | 1997515 | 349  | 83.1389         | 99.9988         | 90.2186      | 88.5608           | 99.999            | 90.7372        | 83.8201             | 99.9979             | 90.2871          |
+| ngsngs    | vg giraffe | vg call     | 276      | 1886              | 271                 | 1577            | 256               | 8            | 16             | 1569         | 240            | 1809 | 24    | 1997531 | 348  | 83.1919         | 99.9995         | 90.615       | 88.5608           | 99.9991           | 91.0815        | 83.8664             | 99.9987             | 90.6766          |
 
 -------
 ## Appendix
