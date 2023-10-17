@@ -13,10 +13,11 @@ Make sure the dependencies are satisfied. Then, copy the files in the released s
 5. [ngsngs](https://github.com/RAHenriksen/NGSNGS) (Tested with version 0.9.0)
 6. [bwa](https://github.com/lh3/bwa) (Tested with version 0.7.17-r1198-dirty)
 7. [bowtie2](https://github.com/BenLangmead/bowtie2) (Tested with version 2.5.1)
-8. [vg](https://github.com/vgteam/vg) (Tested with version v1.51.0 "Quellenhof")
-9. [singularity](https://github.com/sylabs/singularity) (Tested version 3.8.5-2.el7)
-10. [GATK](https://github.com/broadinstitute/gatk) (Tested version singularity image [gatk_4.4.0.0.sif](https://hub.docker.com/r/broadinstitute/gatk))
-11. [DeepVariant](https://github.com/google/deepvariant) (Tested with singularity image [deepvariant_1.5.0.sif](https://hub.docker.com/r/google/deepvariant))
+8. [freebayes](https://github.com/freebayes/freebayes) (Tested with version 1.3.7)
+9. [vg](https://github.com/vgteam/vg) (Tested with version v1.51.0 "Quellenhof")
+10. [singularity](https://github.com/sylabs/singularity) (Tested version 3.8.5-2.el7)
+11. [GATK](https://github.com/broadinstitute/gatk) (Tested version singularity image [gatk_4.4.0.0.sif](https://hub.docker.com/r/broadinstitute/gatk))
+12. [DeepVariant](https://github.com/google/deepvariant) (Tested with singularity image [deepvariant_1.5.0.sif](https://hub.docker.com/r/google/deepvariant))
 
 ## Workflow
 The workflow diagram with tools used and files generated in each step is shown in the below diagram. 
