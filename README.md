@@ -15,7 +15,7 @@ Make sure the dependencies are satisfied. Then, copy the files in the released s
 7. [bowtie2](https://github.com/BenLangmead/bowtie2) (Tested with version 2.5.1)
 8. [freebayes](https://github.com/freebayes/freebayes) (Tested with version 1.3.7, master branch)
 9. [vg](https://github.com/vgteam/vg) (Tested with version v1.51.0 "Quellenhof")
-10. [singularity](https://github.com/sylabs/singularity) (Tested version 3.8.5-2.el7)
+10. [singularity](https://github.com/sylabs/singularity) (Tested version 3.8.5-2.el7 / ce-4.0.1-1.el9)
 11. [GATK](https://github.com/broadinstitute/gatk) (Tested version singularity image [gatk_4.4.0.0.sif](https://hub.docker.com/r/broadinstitute/gatk))
 12. [DeepVariant](https://github.com/google/deepvariant) (Tested with singularity image [deepvariant_1.5.0.sif](https://hub.docker.com/r/google/deepvariant))
 
