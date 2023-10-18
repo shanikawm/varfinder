@@ -79,7 +79,7 @@ git clone https://github.com/RAHenriksen/NGSNGS.git
 cd NGSNGS
 make
 ./ngsngs 
-cp ngsngs /usr/local/bin/ngsng
+cp ngsngs /usr/local/bin/ngsngs
 ```
 
 ### BWA
