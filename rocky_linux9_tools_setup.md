@@ -7,6 +7,7 @@ Download and install [Rocky 9](https://rockylinux.org/download/) minimal in a se
 yum groupinstall "Development Tools"
 yum install -y openssl-devel libuuid-devel libseccomp-devel wget squashfs-tools go python-pip bzip2 bzip2-devel ncurses-devel curl libcurl libcurl-devel cpan
 cpan install Sys::Hostname
+pip install meson
 pip install ninja
 ```
 
