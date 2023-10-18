@@ -4,7 +4,7 @@
 ## Installation
 Make sure the dependencies are satisfied. Then, copy the files in the released script set. 
 ### Dependencies
-**OS:** Any Unix version which satisfies the below dependencies. Tested with Enterprise Linux 7
+**OS:** Any Unix version which satisfies the below dependencies. Tested with Enterprise Linux 7 and [Rocky 9 Enterprise Linux v9 Compatible](https://rockylinux.org/download)
 
 1. [htslib, tabix, bgzip](https://github.com/samtools/htslib) (Tested with htslib 1.17)
 2. [SAMtools](https://github.com/samtools/samtools) (Tested with Version: 1.17 (using htslib 1.17))
