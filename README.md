@@ -6,14 +6,14 @@ Make sure the dependencies are satisfied. Then, copy the files in the released s
 ### Dependencies
 **OS:** Any Unix version which satisfies the below dependencies. Tested with Enterprise Linux 7 and [Rocky 9 Enterprise Linux v9 Compatible](https://rockylinux.org/download).
 
-1. [htslib, tabix, bgzip](https://github.com/samtools/htslib) (Tested with htslib 1.17)
-2. [SAMtools](https://github.com/samtools/samtools) (Tested with Version: 1.17 (using htslib 1.17))
-3. [BCFtools](https://github.com/samtools/bcftools) (Tested with Version: 1.17 (using htslib 1.17))
-4. [wgsim](https://github.com/lh3/wgsim) (Tested with Version: 1.17)
+1. [htslib, tabix, bgzip](https://github.com/samtools/htslib) (Tested with htslib 1.17/18)
+2. [SAMtools](https://github.com/samtools/samtools) (Tested with Version: 1.17/18 (using htslib 1.17/18))
+3. [BCFtools](https://github.com/samtools/bcftools) (Tested with Version: 1.17/18 (using htslib 1.17/18))
+4. [wgsim](https://github.com/lh3/wgsim) (Tested with Version: 1.17/18)
 5. [ngsngs](https://github.com/RAHenriksen/NGSNGS) (Tested with current master branch 2023-Oct-18)
 6. [bwa](https://github.com/lh3/bwa) (Tested with version 0.7.17-r1198-dirty)
 7. [bowtie2](https://github.com/BenLangmead/bowtie2) (Tested with version 2.5.1)
-8. [freebayes](https://github.com/freebayes/freebayes) (Tested with version 1.3.7)
+8. [freebayes](https://github.com/freebayes/freebayes) (Tested with version 1.3.7, master branch)
 9. [vg](https://github.com/vgteam/vg) (Tested with version v1.51.0 "Quellenhof")
 10. [singularity](https://github.com/sylabs/singularity) (Tested version 3.8.5-2.el7)
 11. [GATK](https://github.com/broadinstitute/gatk) (Tested version singularity image [gatk_4.4.0.0.sif](https://hub.docker.com/r/broadinstitute/gatk))
