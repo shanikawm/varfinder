@@ -1,6 +1,6 @@
 ## Installing all the tools required in Rocky Linux 9
 ### Install Rocky Linux 9
-Download and install [Rocky 9](https://rockylinux.org/download/) minimal in a server. A [VMware](https://www.vmware.com/) virtual machine will also be feasible.
+Download and install [Rocky 9](https://rockylinux.org/download/) minimal in a server. A [VMware](https://www.vmware.com/) or [Oracle Virtual Box](https://www.virtualbox.org/) virtual machine will also be feasible.
 
 ### Dependencies
 ```bash
