@@ -211,6 +211,24 @@ e.g:
 #For graph approach
 ./varfind-pipe.sh -r vgindex.giraffe.gbz -f HG00096.fa -v HG00096.vcf.gz -l 100 -d 60 -s n -m g -c v -t 48
 ```
+```
+Program : varfind-pipe.sh
+Version : 1.0
+Usage: varfind-pipe.sh [options]
+-r | --ref STR reference .fasta sequence file or reference .gbz graph file
+-f | --file STR .fasta file of the sample considered
+-v | --vcf STR Ground truth vcf file of the sample considered
+-l | --length INT read length (Default 100)
+-d | --depth INT read coverage depth (Default 30)
+-s | --sim STR read simulator. 'n' for NGSNGS and 'w' for wgsim (Default 'n')
+-m | --mapper STR mapper/Aligner to use. 'm' for 'bwa mem', 's' for 'bwa sampe', 'b' for 'bowtie2' and 'g' for 'vg giraffe'. (Default 'm' or 'g' if the --ref is .gbz graph file)
+-c | --caller STR variant caller to use. 'b' for 'bcftools', 'f' for 'freebayes', 'g' for 'gatk HaplotypeCaller', 'd' for 'DeepVariant' and 'v' for 'vg call'. (Default 'b' or 'v' if the --ref is .gbz graph file)
+-i | --image STR Singularity image file if the caller run through singularity (Only for caller option 'g' and 'd')
+-t | --threads INT number of threads to use (Default 'nproc')
+-w | --write STR write logs to this file (optional, default 'varfinder.log')
+-h | --help Display this help message
+
+```
 
 For all 26 workflows, we can use the 26 commands. 
 ```bash
