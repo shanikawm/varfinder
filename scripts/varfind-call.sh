@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 # Author : Shanika Amarasoma, Nuzla Ismail
-# Date : Octomber 04, 2023
+# Date : October 04, 2023
 # Description : This command will Call the variants
 # Usage : varfind-call.sh -f <reference fasta,fa file> -g <reference graph gbz file> -m <bam or gam file> -t <no of threads> -c <variant caller>
 # ./varfind-call.sh -f NC_000020.11.fa -m HG00096.bam -c b -t 48
