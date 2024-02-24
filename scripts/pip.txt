@@ -4,5 +4,5 @@
 ./varfind-reads.sh -f HG00096.fa -s n -l 100 -d 60
 ./varfind-map.sh -f NC_000020.11.fa -1 HG00096_reads_R1.fq.gz -2 HG00096_reads_R2.fq.gz -t 48 -m m
 ./varfind-call.sh -f NC_000020.11.fa -m HG00096.bam -c b -t 48
-./varfind-call.sh -g vgindex.giraffe.gbz -m HG00096.gam -c v -t 48
-./varfind-compare.sh -g HG00096.vcf.gz -v HG00096.varfind.d.vcf.gz -f HG00096.fa
+#./varfind-call.sh -g vgindex.giraffe.gbz -m HG00096.gam -c v -t 48
+./varfind-compare.sh -g HG00096.vcf.gz -v HG00096.varfind.b.vcf.gz -f HG00096.fa
