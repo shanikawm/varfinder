@@ -81,6 +81,7 @@ Usage: varfind-prepare.sh [options]
 -w | --write STR write logs to this file (optional, default 'varfinder.log')
 -h | --help Display this help message
 ```
+This will produce `vg.vcf.gz`, its index file `vg.vcf.gz.tbi` and the graph file `vgindex.giraffe.gbz` with its other supporting files `vgindex.dist` and `vgindex.min`. 
 
 ### 1. Executing the workflow (ngsngs -> bwa mem -> bcftools call)
 First, we'll simulate the reading using the command `varfind-reads.sh` with a read length of 100 and a coverage of 60.  
