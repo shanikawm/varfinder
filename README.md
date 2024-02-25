@@ -21,7 +21,8 @@ Make sure the dependencies are satisfied. Then, copy the files in the released s
 
 ## Workflow
 The workflow diagram with tools used and files generated in each step is shown in the below diagram. 
-![Picture1](https://github.com/shanikawm/varfinder/assets/13011667/a0a0e729-964c-4016-8169-7454a6b5ccc2)
+
+![workflow-diagram](https://github.com/shanikawm/varfinder/assets/13011667/cdfeaf45-529e-42ba-ba9a-c843d17e544d)
 
 
 ------
