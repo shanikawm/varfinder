@@ -21,7 +21,8 @@ Make sure the dependencies are satisfied. Then, copy the files in the released s
 
 ## Workflow
 The workflow diagram with tools used and files generated in each step is shown in the below diagram. 
-![image](https://github.com/shanikawm/varfinder/assets/13011667/d7c4558a-cc50-4b18-aa2d-acfaaa714546)
+![Picture1](https://github.com/shanikawm/varfinder/assets/13011667/a0a0e729-964c-4016-8169-7454a6b5ccc2)
+
 
 ------
 ## Example Using Genome assembly GRCh38.p14 Chromosome 20  
