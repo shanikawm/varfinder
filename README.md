@@ -23,7 +23,7 @@ established workflow and the demonstrated efficacy of specific
 tools in the context of genomics data analysis. To meet these
 requirements, “VarFind”, an open-source and freely accessible
 pipeline tool designed to automate the entire process has been
-introduced
+introduced.
 ## Installation
 Make sure the dependencies are satisfied. Then, copy the files in the released script set. 
 ### Dependencies
