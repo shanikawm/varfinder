@@ -1,9 +1,9 @@
 # VarFinder
 ## An Integrated Genomics Workflow Tool: Simulating Reads, Evaluating Read Alignments, and Optimizing Variant Calling Algorithms
 
-Next-generation sequencing (NGS) is a pivotal technique in genome sequencing due to its high throughput, rapid
+Next-generation sequencing (NGS) is a pivotal technique in genome sequencing due to its high throughput, rapid
 results, cost-effectiveness, and enhanced accuracy. Its significance
-extends across various domains, playing a crucial role in identifying genetic variations and exploring genomic complexity. NGS
+extends across various domains, which is crucial in identifying genetic variations and exploring genomic complexity. NGS
 finds applications in diverse fields such as clinical genomics,
 comparative genomics, functional genomics, and metagenomics,
 contributing substantially to advancements in research, medicine,
@@ -14,15 +14,15 @@ dependable results. Given the plethora of tools available for these
 purposes, each employing distinct methodologies and options, a
 nuanced understanding of their intricacies becomes imperative
 for optimization. This research, situated at the intersection of
-data science and genomics involves a meticulous assessment
+data science and genomics, involves a meticulous assessment
 of various tools, elucidating their strengths and
 weaknesses through rigorous experimentation and analysis. This
 comprehensive evaluation has enabled the researchers to pinpoint
 the most accurate tools, reinforcing the alignment between the
 established workflow and the demonstrated efficacy of specific
-tools in the context of genomics data analysis. To meet these
+tools in genomics data analysis. To meet these
 requirements, “VarFind”, an open-source and freely accessible
-pipeline tool designed to automate the entire process has been
+pipeline tool designed to automate the entire process, has been
 introduced.
 ## Installation
 Make sure the dependencies are satisfied. Then, copy the files in the released script set. 
