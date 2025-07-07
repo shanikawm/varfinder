@@ -475,3 +475,18 @@ For GPU version
 ```
 singularity pull docker://google/deepvariant:"1.5.0-gpu"
 ```
+
+## Citation
+[https://arxiv.org/pdf/2504.17860](https://arxiv.org/pdf/2504.17860)
+```
+@INPROCEEDINGS{11012112,
+  author={Ismail, Fathima Nuzla and Amarasoma, Shanika},
+  booktitle={2024 12th International Conference on Bioinformatics and Computational Biology (ICBCB)}, 
+  title={An Integrated Genomics Workflow Tool: Simulating Reads, Evaluating Read Alignments, and Optimizing Variant Calling Algorithms}, 
+  year={2024},
+  volume={},
+  number={},
+  pages={49-56},
+  keywords={Sequential analysis;Accuracy;Translation;Pipelines;Genomics;Standardization;Data science;Throughput;Bioinformatics;Software development management;Variant Calling;Read Mapping;Work Flow},
+  doi={10.1109/ICBCB61507.2024.11012112}}
+```
